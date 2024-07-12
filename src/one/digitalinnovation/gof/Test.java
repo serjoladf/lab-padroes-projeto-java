@@ -12,46 +12,54 @@ import one.digitalinnovation.gof.strategy.Robo;
 
 public class Test {
 
-	public static void main(String[] args) {
-		
-		// Singleton
-		
-		SingletonLazy lazy = SingletonLazy.getInstancia();
-		System.out.println(lazy);
-		lazy = SingletonLazy.getInstancia();
-		System.out.println(lazy);
-		
-		SingletonEager eager = SingletonEager.getInstancia();
-		System.out.println(eager);
-		eager = SingletonEager.getInstancia();
-		System.out.println(eager);
-		
-		SingletonLazyHolder lazyHolder = SingletonLazyHolder.getInstancia();
-		System.out.println(lazyHolder);
-		lazyHolder = SingletonLazyHolder.getInstancia();
-		System.out.println(lazyHolder);
-		
-		// Strategy
-		
-		Comportamento defensivo = new ComportamentoDefensivo();
-		Comportamento normal = new ComportamentoNormal();
-		Comportamento agressivo = new ComportamentoAgressivo();
-		
-		Robo robo = new Robo();
-		robo.setComportamento(normal);
-		robo.mover();
-		robo.mover();
-		robo.setComportamento(defensivo);
-		robo.mover();
-		robo.setComportamento(agressivo);
-		robo.mover();
-		robo.mover();
-		robo.mover();
-		
-		// Facade
-		
-		Facade facade = new Facade();
-		facade.migrarCliente("Venilton", "14801788");
-	}
+    public static void main(String[] args) {
 
+        // Singleton
+
+        SingletonLazy lazy = SingletonLazy.getInstancia();
+        System.out.println(lazy);
+        lazy = SingletonLazy.getInstancia();
+        System.out.println(lazy);
+
+        SingletonEager eager = SingletonEager.getInstancia();
+        System.out.println(eager);
+        eager = SingletonEager.getInstancia();
+        System.out.println(eager);
+
+        SingletonLazyHolder lazyHolder = SingletonLazyHolder.getInstancia();
+        System.out.println(lazyHolder);
+        lazyHolder = SingletonLazyHolder.getInstancia();
+        System.out.println(lazyHolder);
+
+        // Strategy
+
+        Comportamento defensivo = new ComportamentoDefensivo();
+        Comportamento normal = new ComportamentoNormal();
+        Comportamento agressivo = new ComportamentoAgressivo();
+
+        Robo robo = new Robo();
+        robo.setComportamento(normal);
+
+        int passosPorPadrao = 3;
+        int repeticoesDoPadrao = 4;
+
+        for (int i = 1; i <= repeticoesDoPadrao; i++) {
+            System.out.println("Padrão " + i + ":");
+
+            for (int j = 1; j <= passosPorPadrao; j++) {
+                System.out.println("Passo " + ((i - 1) * passosPorPadrao + j) + ":");
+                robo.mover();
+            }
+
+            if (i < repeticoesDoPadrao) {
+                System.out.println("Alternando comportamentos:");
+                robo.setComportamento(defensivo);
+                robo.mover();
+                robo.setComportamento(agressivo);
+                robo.mover();
+                robo.setComportamento(normal);
+                robo.mover();
+            }
+        }
+	}
 }
